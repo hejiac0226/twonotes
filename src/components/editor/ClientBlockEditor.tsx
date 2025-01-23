@@ -11,12 +11,12 @@ interface ClientBlockEditorProps {
     onBlocksChange?: (blocks: BlockType[]) => void;
 }
 
-export default function ClientBlockEditor({ blocks: initialBlocks, onBlocksChange }: ClientBlockEditorProps) {
-    const [blocks, setBlocks] = useState<BlockType[]>(initialBlocks);
+export default function ClientBlockEditor({ blocks: initialBlocks = [], onBlocksChange }: ClientBlockEditorProps) {
+    const [blocks, setBlocks] = useState<BlockType[]>(initialBlocks || []);
 
     // 当外部传入的 blocks 改变时，更新内部状态
     useEffect(() => {
-        setBlocks(initialBlocks);
+        setBlocks(initialBlocks || []);
     }, [initialBlocks]);
 
     const handleBlockChange = (id: string, updates: Partial<BlockType>) => {

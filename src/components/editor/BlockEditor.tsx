@@ -15,5 +15,5 @@ export default function BlockEditor({ note, onUpdateBlocks }: BlockEditorProps) 
         );
     }
 
-    return <ClientBlockEditor blocks={note.blocks} onBlocksChange={onUpdateBlocks} />;
+    return <ClientBlockEditor blocks={note.blocks || []} onBlocksChange={onUpdateBlocks} />;
 } 
