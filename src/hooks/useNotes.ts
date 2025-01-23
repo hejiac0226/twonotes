@@ -52,7 +52,12 @@ export function useNotes() {
             const newNote: Note = {
                 id: crypto.randomUUID(),
                 title,
-                blocks: [],
+                blocks: [{
+                    id: crypto.randomUUID(),
+                    leftContent: '',
+                    rightContent: '',
+                    leftWidth: 50
+                }],
                 createdAt: new Date(),
                 updatedAt: new Date()
             };
