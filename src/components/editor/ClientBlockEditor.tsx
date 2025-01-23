@@ -108,12 +108,21 @@ export default function ClientBlockEditor() {
                     {blocks.map((block, index) => (
                         <div key={block.id}>
                             <Block
+                                key={block.id}
                                 id={block.id}
                                 leftContent={block.leftContent}
                                 rightContent={block.rightContent}
                                 onLeftChange={(content) => updateBlock(block.id, 'leftContent', content)}
                                 onRightChange={(content) => updateBlock(block.id, 'rightContent', content)}
                                 onDelete={() => deleteBlock(block.id)}
+                                onMove={(direction: 'up' | 'down') => {
+                                    const currentIndex = blocks.findIndex(b => b.id === block.id);
+                                    if (direction === 'up' && currentIndex > 0) {
+                                        setBlocks(arrayMove(blocks, currentIndex, currentIndex - 1));
+                                    } else if (direction === 'down' && currentIndex < blocks.length - 1) {
+                                        setBlocks(arrayMove(blocks, currentIndex, currentIndex + 1));
+                                    }
+                                }}
                                 isFirst={index === 0}
                                 isLast={index === blocks.length - 1}
                             />

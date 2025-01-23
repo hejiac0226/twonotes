@@ -12,6 +12,7 @@ interface BlockProps {
     onDelete: () => void;
     isFirst: boolean;
     isLast: boolean;
+    onMove: (direction: 'up' | 'down') => void;
 }
 
 export default function Block({
@@ -22,7 +23,8 @@ export default function Block({
     onRightChange,
     onDelete,
     isFirst,
-    isLast
+    isLast,
+    onMove
 }: BlockProps) {
     const [leftWidth, setLeftWidth] = useState(50); // 左栏宽度百分比
     const isDragging = useRef(false);
@@ -43,7 +45,7 @@ export default function Block({
         opacity: isDraggingBlock ? 0.5 : 1,
     };
 
-    const handleDragStart = (e: React.MouseEvent) => {
+    const handleDragStart = () => {
         isDragging.current = true;
         document.addEventListener('mousemove', handleDrag);
         document.addEventListener('mouseup', handleDragEnd);
@@ -79,6 +81,8 @@ export default function Block({
             >
                 <BlockMenu
                     onDelete={onDelete}
+                    onMoveUp={() => onMove('up')}
+                    onMoveDown={() => onMove('down')}
                     isFirst={isFirst}
                     isLast={isLast}
                 />
