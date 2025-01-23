@@ -101,9 +101,21 @@ function loadSavedNotes(): Note[] | null {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (!saved) return null;
 
-        const parsedNotes = JSON.parse(saved);
+        const parsedNotes = JSON.parse(saved) as Array<{
+            id: string;
+            title: string;
+            blocks: Array<{
+                id: string;
+                leftContent: string;
+                rightContent: string;
+                leftWidth: number;
+            }>;
+            createdAt: string;  // JSON.parse 会将日期解析为字符串
+            updatedAt: string;
+        }>;
+
         // 将日期字符串转换回 Date 对象
-        return parsedNotes.map((note: any) => ({
+        return parsedNotes.map(note => ({
             ...note,
             createdAt: new Date(note.createdAt),
             updatedAt: new Date(note.updatedAt)
