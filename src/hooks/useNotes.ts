@@ -16,6 +16,22 @@ export function useNotes() {
         if (savedNotes && savedNotes.length > 0) {
             setNotes(savedNotes);
             setCurrentNoteId(savedNotes[0].id);
+        } else {
+            // 如果没有保存的笔记，创建一个新笔记
+            const newNote: Note = {
+                id: crypto.randomUUID(),
+                title: '新建笔记',
+                blocks: [{
+                    id: crypto.randomUUID(),
+                    leftContent: '',
+                    rightContent: '',
+                    leftWidth: 50
+                }],
+                createdAt: new Date(),
+                updatedAt: new Date()
+            };
+            setNotes([newNote]);
+            setCurrentNoteId(newNote.id);
         }
     }, []);
 
@@ -83,7 +99,15 @@ export function useNotes() {
 function loadSavedNotes(): Note[] | null {
     try {
         const saved = localStorage.getItem(STORAGE_KEY);
-        return saved ? JSON.parse(saved) : null;
+        if (!saved) return null;
+
+        const parsedNotes = JSON.parse(saved);
+        // 将日期字符串转换回 Date 对象
+        return parsedNotes.map((note: any) => ({
+            ...note,
+            createdAt: new Date(note.createdAt),
+            updatedAt: new Date(note.updatedAt)
+        }));
     } catch (error) {
         console.error('Failed to load saved notes:', error);
         return null;
