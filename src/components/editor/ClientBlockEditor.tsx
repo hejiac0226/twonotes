@@ -4,8 +4,6 @@ import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import Block from './Block';
 import AddBlockButton from './AddBlockButton';
-import { useAutoSave, SaveStatus } from '@/hooks/useAutoSave';
-import SaveStatusIndicator from './SaveStatus';
 import { Block as BlockType } from '@/types/note';
 
 interface ClientBlockEditorProps {

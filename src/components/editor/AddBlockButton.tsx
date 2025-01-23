@@ -1,5 +1,3 @@
-import { BsPlusCircle } from 'react-icons/bs';
-
 interface AddBlockButtonProps {
     onClick: () => void;
 }

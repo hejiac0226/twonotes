@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect, ReactNode } from 'react';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useState, useRef, useEffect, type ReactNode } from 'react';
 
 interface BlockMenuProps {
     onMoveUp: () => void;
